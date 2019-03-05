@@ -6,10 +6,32 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="index.js"></script>
   <title>Proov</title>
+  <style type="text/css">
+  #mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+  }
+
+  #mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+  }
+  </style>
 </head>
 <body>
 <div id="clockContainer"></div>
 <button id="change-color">Muuda värvi</button>
 <div id="dayContainer"></div>
+<div id="monthContainer"></div>
+<div id="mydiv">
+  <div id="mydivheader">Spotify</div>
+  <p><iframe src="https://open.spotify.com/embed/album/4eLPsYPBmXABThSJ821sqY" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></p>
+</div>
 </body>
 </html>
