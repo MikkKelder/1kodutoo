@@ -5,33 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="index.js"></script>
-  <title>Proov</title>
+  <title>Kodune ülesanne</title>
   <style type="text/css">
-  #mydiv {
-    position: absolute;
-    z-index: 9;
-    background-color: #f1f1f1;
-    border: 1px solid #d3d3d3;
-    text-align: center;
-  }
 
-  #mydivheader {
-    padding: 10px;
-    cursor: move;
-    z-index: 10;
-    background-color: #2196F3;
-    color: #fff;
-  }
+.clock {
+  position: sticky;
+  font-size: 45vh;
+  display: flex;
+  justify-content: center;
+}
+.day {
+  position: relative;
+  font-size: 300%;
+  display: flex;
+  justify-content: left;
+}
+.month {
+  position: relative;
+  font-size: 20vh;
+  display: flex;
+  justify-content: right;
+}
+.button {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  padding:5px;
+  border:2px solid #ccc;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-color: white;
+  border-color:#333;
+}
+.music {
+  position: fixed;
+  left:auto;
+  bottom: 10px;
+  border-radius: 5px;
+  border-color:#333;
+}
+.author {
+  font-size: 5vh;
+  display: flex;
+  justify-content: right;
+}
   </style>
 </head>
 <body>
-<div id="clockContainer"></div>
-<button id="change-color">Muuda värvi</button>
-<div id="dayContainer"></div>
-<div id="monthContainer"></div>
-<div id="mydiv">
-  <div id="mydivheader">Spotify</div>
-  <p><iframe src="https://open.spotify.com/embed/album/4eLPsYPBmXABThSJ821sqY" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></p>
+
+<button class="button" id="change-color">Muuda taustavärvi</button>
+<button class="button" id="change-font-color">Muuda fontivärvi</button>
+<select id="input-font" class="button"  onchange="changeFont (this);">
+ <option value="Times New Roman">Times New Roman</option>
+ <option value="Arial">Arial</option>
+ <option value="Comic Sans MS">Comic Sans MS</option>
+ <option value="Georgia">Georgia</option>
+ <option value="Impact">Impact</option>
+</select>
+<a class="button" href="https://github.com/MikkKelder/1kodutoo">Repositoorium</a>
+<span class="author">Mikk Kelder</span>
+<div id="clockFont"></div>
+<div class="clock" id="clockContainer"></div>
+<div class="day" id="dayContainer"></div>
+<div class="month" id="monthContainer"></div>
+
 </div>
+
+<br>
 </body>
+<div class="music">
+<audio controls loop preload="metadata" class="button">
+<source src="rainthunder.mp3" type="audio/mpeg" >
+  </div>
+</audio>
 </html>

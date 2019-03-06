@@ -1,78 +1,43 @@
 /*jshint esversion:6*/
 let clockContainer;
 let changeColor;
+let changeFontColor;
 let dayContainer;
 let monthContainer;
+let fullTimeContainer;
+var audio = new Audio('gong.mp3');
+
 
 window.onload = function () {
   init();
 };
 
 function init() {
-  dragElement(document.getElementById("mydiv"));
+//  dragElement(document.getElementById("mydiv"));
   startClock();
     changeColor=document.querySelector('#change-color');
     changeColor.addEventListener('click', changeBackgroundColor);
     window.addEventListener('onclick', changeBackgroundColor);
+    changeFontColor=document.querySelector('#change-font-color');
+    changeFontColor.addEventListener('click', changeTextColor);
+    window.addEventListener('onclick', changeTextColor);
 }
-function spotify() {
 
-}
 function startClock() {
   clockContainer=document.querySelector('#clockContainer');
   monthContainer=document.querySelector('#monthContainer');
+  fullTimeContainer=document.querySelector('#fullTime');
   updateMonth();
-  updateClock();
+  updateDay();
+
   window.setInterval(function(){
-    updateClock();
-    updateMonth();
+    updateDay();
+    //updateMonth();
   }, 1000);
-}
-
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
 }
 
 function updateMonth() {
   const date = new Date();
-  monthContainer.innerHTML = date;
   monthContainer = document.querySelector('#monthContainer');
   let month;
   switch(new Date().getMonth()){
@@ -114,12 +79,32 @@ function updateMonth() {
       break;
 
   }
+  today= new Date().getDate();
+  month= today + ". " + month;
   monthContainer.innerHTML = month;
 }
 
-function updateClock() {
+function updateDay() {
   const date = new Date();
-  clockContainer.innerHTML = date;
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = "0"+hours;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = "0"+minutes;
+  }
+  let seconds = date.getSeconds();
+  if (seconds < 10){
+    seconds = "0"+seconds;
+  }
+  if (minutes == 59){
+    if (seconds == 57){
+          audio.play();
+    }
+  }
+  let fullTime = hours+":"+minutes+":"+seconds;
+  clockContainer.innerHTML = fullTime;
   dayContainer = document.querySelector('#dayContainer');
   let day;
   switch(new Date().getDay()){
@@ -154,4 +139,16 @@ function changeBackgroundColor() {
   const blue = Math.round(Math.random()*255);
 //  document.body.style.backgroundColor = "rgb(" + red + "," + green + "," + blue +")";
 document.body.style.backgroundColor = `rgb(${red},${green},${blue})`;
+}
+
+function changeTextColor() {
+  const red = Math.round(Math.random()*255);
+  const green = Math.round(Math.random()*255);
+  const blue = Math.round(Math.random()*255);
+//  document.body.style.backgroundColor = "rgb(" + red + "," + green + "," + blue +")";
+document.body.style.color = `rgb(${red},${green},${blue})`;
+}
+
+function changeFont(font){
+    document.getElementById("clockContainer").style.fontFamily = font.value;
 }
